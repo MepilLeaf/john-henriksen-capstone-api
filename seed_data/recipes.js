@@ -134,4 +134,5 @@ module.exports = [
       "Step 1: Preheat oven to 350°F (175°C). Grease and flour cake pans.\nStep 2: In a large bowl, sift together flour, cocoa powder, sugar, baking powder, baking soda, and salt.\nStep 3: In another bowl, beat together eggs, milk, oil, and vanilla extract until well combined.\nStep 4: Gradually add wet ingredients to dry ingredients and mix until smooth.\nStep 5: Stir in boiling water until batter is thin.\nStep 6: Pour batter into prepared cake pans.\nStep 7: Bake for 30-35 minutes or until a toothpick inserted into the center comes out clean.\nStep 8: Let cool in pans for 10 minutes before transferring to wire racks to cool completely.\nStep 9: Frost and decorate as desired.",
     recipeTags: "cake chocolate dessert celebration sweet",
   },
+  
 ];

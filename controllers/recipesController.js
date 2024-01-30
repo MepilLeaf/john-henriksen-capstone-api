@@ -1,8 +1,6 @@
 const knex = require("knex")(require("../knexfile"));
 
 const scoreWord = (word, pattern) => {
-  const strictPattern = `^${pattern}$`;
-
   if (RegExp(`^${pattern}$`).test(word)) return 3;
 
   if (RegExp(pattern).test(word)) return 1;
@@ -13,7 +11,6 @@ const scoreWord = (word, pattern) => {
 const getAllRecipes = async (_req, res) => {
   try {
     const recipes = await knex("recipes");
-    console.log(recipes[0].recipeContent);
     res.status(200).json(recipes);
   } catch (error) {
     res.status(400).send(`Failed to retrieve data: ${error}`);
@@ -58,12 +55,23 @@ const searchRecipes = async (req, res) => {
 
     res.json(recipes);
   } catch (error) {
-    console.log(error);
-    res.send(error);
+    res.status(400).send(`Failed to retrieve data: ${error}`);
+  }
+};
+
+const getRecipeById = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const recipe = await knex("recipes").where("id", id);
+    res.status(200).send(recipe);
+  } catch (error) {
+    res.status(400).send(`Failed to retrieve data: ${error}`);
   }
 };
 
 module.exports = {
   getAllRecipes,
   searchRecipes,
+  getRecipeById,
 };
