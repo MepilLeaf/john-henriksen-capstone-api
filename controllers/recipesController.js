@@ -20,11 +20,9 @@ const getAllRecipes = async (_req, res) => {
 const searchRecipes = async (req, res) => {
   const query = knex("recipes");
 
-  console.log(req.query.search_query);
-
   const terms = req.query.search_query
     .toLowerCase()
-    .split("+")
+    .split(" ")
     .filter((term) => term !== "");
 
   const termsAsRegex = `(${terms.join("|")})`;
@@ -41,10 +39,10 @@ const searchRecipes = async (req, res) => {
       .map((recipe) => {
         let score = 0;
         recipe.recipeTitle.split(" ").forEach((word) => {
-          score += scoreWord(word, termsAsRegex);
+          score += scoreWord(word.toLowerCase(), termsAsRegex);
         });
         recipe.recipeTags.split(" ").forEach((tag) => {
-          score += scoreWord(tag, termsAsRegex);
+          score += scoreWord(tag.toLowerCase(), termsAsRegex);
         });
 
         recipe.score = score;
