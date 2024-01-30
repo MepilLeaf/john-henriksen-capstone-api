@@ -20,9 +20,11 @@ const getAllRecipes = async (_req, res) => {
 const searchRecipes = async (req, res) => {
   const query = knex("recipes");
 
-  const terms = req.body.search
+  console.log(req.query.search_query);
+
+  const terms = req.query.search_query
     .toLowerCase()
-    .split(" ")
+    .split("+")
     .filter((term) => term !== "");
 
   const termsAsRegex = `(${terms.join("|")})`;
@@ -70,8 +72,18 @@ const getRecipeById = async (req, res) => {
   }
 };
 
+const postRecipe = async (req, res) => {
+  try {
+    const newResourceId = await knex("recipes").insert(req.body);
+    res.status(201).send(`Resource created with id of ${newResourceId}`);
+  } catch (error) {
+    res.status(409).send(`Failed to create resource: ${req.body}`);
+  }
+};
+
 module.exports = {
   getAllRecipes,
   searchRecipes,
   getRecipeById,
+  postRecipe,
 };
