@@ -4,7 +4,10 @@ const recipesController = require("../controllers/recipesController");
 router
   .route("/")
   .get(recipesController.getAllRecipes)
-  .post(recipesController.searchRecipes);
+  .post(recipesController.postRecipe);
+
+// recipes/search?search_query=search+terms
+router.route("/search").get(recipesController.searchRecipes);
 
 router.route("/:id").get(recipesController.getRecipeById);
 
