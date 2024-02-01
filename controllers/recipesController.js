@@ -10,7 +10,7 @@ const scoreWord = (word, pattern) => {
 
 const getAllRecipes = async (_req, res) => {
   try {
-    const recipes = await knex("recipes");
+    const recipes = await knex("recipes").limit(20);
     res.status(200).json(recipes);
   } catch (error) {
     res.status(400).send(`Failed to retrieve data: ${error}`);
