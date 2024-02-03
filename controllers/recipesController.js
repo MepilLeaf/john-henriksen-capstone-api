@@ -71,8 +71,19 @@ const getRecipeById = async (req, res) => {
 };
 
 const postRecipe = async (req, res) => {
+  let newRecipe = req.body;
+
+  console.log(req.body);
+
+  newRecipe.recipeTags = newRecipe.recipeTags
+    .split(",")
+    .map((tag) => {
+      return tag.replaceAll(/\s/g, "");
+    })
+    .join(" ");
+
   try {
-    const newResourceId = await knex("recipes").insert(req.body);
+    const newResourceId = await knex("recipes").insert(newRecipe);
     res.status(201).send(`Resource created with id of ${newResourceId}`);
   } catch (error) {
     res.status(409).send(`Failed to create resource: ${req.body}`);
